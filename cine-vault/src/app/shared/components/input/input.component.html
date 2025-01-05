@@ -1,0 +1,17 @@
+@if(isPassword){
+<p-floatlabel variant="in">
+  <p-password
+    class="ng-invalid ng-dirty"
+    [feedback]="feedback"
+    [toggleMask]="true"
+    [formControl]="control"
+  />
+  <label class="!text-white">{{ labelText }}</label>
+</p-floatlabel>
+}@else {
+<p-floatlabel variant="in">
+  <input pInputText autocomplete="off" [formControl]="control" />
+  <label class="!text-white">{{ labelText }}</label>
+</p-floatlabel>
+
+}
