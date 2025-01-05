@@ -13,7 +13,7 @@ export class MovieService {
 
   getList(page: number = 1): Observable<Title[]> {
     return this.http.get<Title[]>(
-      `${this.baseUrl}/list-titles/?apiKey=${this.apiKey}&page=${page}`
+      `${this.baseUrl}/list-titles/?apiKey=${this.apiKey}&page=${page}&type=movie&limit=20`
     );
   }
 

@@ -3,18 +3,19 @@ import { MovieService } from '../../shared/services/movie.service';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from "../../shared/components/button/button.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
 })
 export class DashboardComponent implements OnInit {
   movieService = inject(MovieService);
   titles: any[] = [];
   movieDetails: any[] = [];
-  batchSize = 20; // Load 20 at a time
+  batchSize = 20;
   currentPage = 0;
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
         this.movieService.getDetails(movie.id).pipe(
           catchError((error) => {
             console.error(`Error fetching details for ID ${movie.id}:`, error);
-            return of(null); // Return null for failed requests
+            return of(null); 
           })
         )
       )
