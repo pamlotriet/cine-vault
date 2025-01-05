@@ -27,9 +27,12 @@
       ></app-input>
     </div>
     <div class="flex justify-center items-center flex-col w-full mt-8">
-      <app-button buttonText="Login" severity="secondary"></app-button>
       <app-button
+        buttonText="Login"
+        severity="secondary"
         [disabled]="!this.loginForm.valid"
+      ></app-button>
+      <app-button
         buttonText="Register"
         (actionEvent)="navigateToRegister()"
       ></app-button>

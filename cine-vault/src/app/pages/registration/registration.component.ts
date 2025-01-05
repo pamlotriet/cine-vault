@@ -10,6 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-registration',
@@ -21,6 +22,8 @@ export class RegistrationComponent implements OnInit {
   router = inject(Router);
   registrationForm!: FormGroup;
   isFormValid: boolean = false;
+  authService = inject(AuthenticationService);
+
   constructor(private fb: FormBuilder) {
     this.createForm();
   }
@@ -67,6 +70,7 @@ export class RegistrationComponent implements OnInit {
     console.log(this.isFormValid);
     if (this.registrationForm.valid) {
       console.log('Registering user:', this.registrationForm.value);
+      this.authService.registerUser(this.registrationForm.value);
     }
   }
 }
