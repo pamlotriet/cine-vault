@@ -3,7 +3,7 @@ import { MovieService } from '../../shared/services/movie.service';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from "../../shared/components/button/button.component";
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,24 +31,17 @@ export class DashboardComponent implements OnInit {
   }
 
   loadNextBatch() {
-    const start = this.currentPage * this.batchSize;
-    const end = start + this.batchSize;
-
-    const batch = this.titles.slice(start, end);
-
     forkJoin(
-      batch.map((movie) =>
+      this.titles.map((movie) =>
         this.movieService.getDetails(movie.id).pipe(
           catchError((error) => {
             console.error(`Error fetching details for ID ${movie.id}:`, error);
-            return of(null); 
+            return of(null);
           })
         )
       )
     ).subscribe((details) => {
       this.movieDetails.push(...details.filter((detail) => detail !== null));
-      console.log(`Loaded batch ${this.currentPage + 1} details:`, details);
-      this.currentPage++;
     });
   }
 }
