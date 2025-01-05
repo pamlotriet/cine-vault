@@ -67,10 +67,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegister() {
-    console.log(this.isFormValid);
     if (this.registrationForm.valid) {
-      console.log('Registering user:', this.registrationForm.value);
-      this.authService.registerUser(this.registrationForm.value);
+      this.authService
+        .registerUser(this.registrationForm.value)
+        .then(() => {
+          this.router.navigate(['/login']);
+        })
+        .catch((error) => {
+          //TODO:add popup
+          console.error('Registration failed:', error);
+        });
     }
   }
 }

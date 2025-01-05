@@ -11,6 +11,7 @@ import { routes } from './app.routes';
 import { MyPreset } from './shared/theming/theme.preset';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOvAIMyTG4X-u414KoKurBGsseyEMAIWc',
@@ -24,6 +25,7 @@ const firebaseConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideRouter(routes),
     provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),

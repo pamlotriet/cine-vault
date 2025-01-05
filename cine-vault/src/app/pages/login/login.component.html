@@ -31,6 +31,7 @@
         buttonText="Login"
         severity="secondary"
         [disabled]="!this.loginForm.valid"
+        (actionEvent)="onLogin()"
       ></app-button>
       <app-button
         buttonText="Register"

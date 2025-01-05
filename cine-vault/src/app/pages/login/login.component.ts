@@ -10,6 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ import {
 export class LoginComponent {
   router = inject(Router);
   loginForm!: FormGroup;
+  authService = inject(AuthenticationService);
 
   constructor(private fb: FormBuilder) {
     this.createForm();
@@ -37,5 +39,20 @@ export class LoginComponent {
 
   getControl(controlName: string): AbstractControl {
     return this.loginForm.get(controlName) as AbstractControl;
+  }
+
+  onLogin() {
+    console.log('Clicked');
+    this.authService
+      .logUserIn(this.loginForm.value)
+      .then(() => {
+        this.router.navigateByUrl('dashboard');
+        console.log('Scuccess');
+      })
+      .catch((error) => {
+        //TODO:Add popup
+        console.error('something went wrong ', error);
+      });
+    this.router.navigateByUrl('dashboard');
   }
 }
