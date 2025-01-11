@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Title } from '../models/movie.model';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { MOCK_TITLES, MOCK_MOVIE_DETAILS } from '../mock data/movies.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,18 @@ export class MovieService {
     return this.http.get<any>(
       `${this.baseUrl}/title/${movieId}/details/?apiKey=${this.apiKey}`
     );
+  }
+
+  getListMock(page: number): Observable<any> {
+    const itemsPerPage = 20;
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedTitles = MOCK_TITLES.slice(start, end);
+    return of({ titles: paginatedTitles, total: MOCK_TITLES.length });
+  }
+
+  getDetailsMock(movieId: number): Observable<any> {
+    const movieDetails = MOCK_MOVIE_DETAILS[movieId] || null;
+    return of(movieDetails);
   }
 }

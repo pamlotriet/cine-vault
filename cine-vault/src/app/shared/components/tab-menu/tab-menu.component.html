@@ -1,0 +1,44 @@
+<div class="flex flex-row bottom-0 w-screen h-16 fixed bg-black text-white">
+  <div class="grid grid-cols-5 w-full">
+    <div
+      class="col-span-1 flex justify-center items-center"
+      [routerLink]="'/dashboard'"
+      routerLinkActive="text-violet-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="pi pi-home"></i>
+    </div>
+    <div
+      class="col-span-1 flex justify-center items-center"
+      [routerLink]="'/watchlist'"
+      routerLinkActive="text-violet-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="pi pi-bookmark"></i>
+    </div>
+    <div
+      class="col-span-1 flex justify-center items-center"
+      [routerLink]="'/watchedlist'"
+      routerLinkActive="text-violet-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="pi pi-eye"></i>
+    </div>
+    <div
+      class="col-span-1 flex justify-center items-center"
+      [routerLink]="'/favorites'"
+      routerLinkActive="text-violet-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="pi pi-heart-fill"></i>
+    </div>
+    <div
+      class="col-span-1 flex justify-center items-center"
+      [routerLink]="'/menu'"
+      routerLinkActive="text-violet-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <i class="pi pi-bars"></i>
+    </div>
+  </div>
+</div>
