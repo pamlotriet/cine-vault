@@ -12,6 +12,8 @@ import { MyPreset } from './shared/theming/theme.preset';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideFirestore } from '@angular/fire/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOvAIMyTG4X-u414KoKurBGsseyEMAIWc',
@@ -30,6 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     providePrimeNG({
       theme: {

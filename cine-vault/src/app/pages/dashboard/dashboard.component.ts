@@ -3,16 +3,17 @@ import { MovieService } from '../../shared/services/movie.service';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../shared/components/button/button.component';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule],
 })
 export class DashboardComponent implements OnInit {
   movieService = inject(MovieService);
+  authService = inject(AuthenticationService);
   titles: any[] = [];
   movieDetails: any[] = [];
   batchSize = 20;
@@ -21,6 +22,20 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // this.getTitles();
     this.getTitlesMock();
+  }
+
+  addToFavourites(movieId: string) {
+    console.log('clicked');
+    const userId = this.authService.getUserId();
+    console.log(movieId);
+    if (userId && movieId) {
+      this.movieService
+        .addToFavourites(userId, movieId)
+        .then(() => console.log('Movie added to favorites!'))
+        .catch((error) =>
+          console.error('Error adding movie to favorites:', error)
+        );
+    }
   }
 
   getTitles() {

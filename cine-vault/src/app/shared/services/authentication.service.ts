@@ -1,7 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from '@angular/fire/auth';
 import { IUser } from '../models/user.model';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,11 @@ export class AuthenticationService {
       this.firebaseAuth,
       user.email,
       user.password
-    );
+    ).then((userCredential) => {
+      const userId = userCredential.user.uid;
+      localStorage.setItem('userId', userId);
+      return userCredential;
+    });
   }
 
   logUserIn(user: IUser) {
@@ -22,6 +29,20 @@ export class AuthenticationService {
       this.firebaseAuth,
       user.email,
       user.password
-    );
+    ).then((userCredential) => {
+      const userId = userCredential.user.uid;
+      localStorage.setItem('userId', userId);
+      return userCredential;
+    });
+  }
+
+  logUserOut() {
+    return this.firebaseAuth.signOut().then(() => {
+      localStorage.removeItem('userId');
+    });
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
   }
 }
